@@ -25,7 +25,7 @@ jobs:
         image: postgres
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: bloom_test
+          POSTGRES_DB: bloom-dev
           POSTGRES_USER: bloom-dev
           POSTGRES_PASSWORD: bloom
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -60,7 +60,7 @@ jobs:
         run: pg_isready -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
 
       - name: Not sure why but there is a dependency on this existing
-        run: psql -c 'CREATE DATABASE bloom_dev;'
+        run: psql -c 'CREATE DATABASE bloom-test;'
         env:
           PGHOST: 127.0.0.1
           PGPASSWORD: bloom
