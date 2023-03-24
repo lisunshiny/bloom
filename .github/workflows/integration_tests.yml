@@ -55,6 +55,14 @@ jobs:
         working-directory: ./backend/core
         run: yarn
 
+      - name: Check postgres
+        run: pg_isready -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
+
+      - name: Check postgres a different way 
+        run: psql -c 'DROP DATABASE IF EXISTS bloom;'
+        env:
+          POSTGRES_HOST: 127.0.0.1
+
       - name: yarn e2e tests backend
         working-directory: ./backend/core
         run: yarn test:e2e:local
