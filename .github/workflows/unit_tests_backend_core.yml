@@ -1,4 +1,4 @@
-name: Unit tests
+name: Unit tests for backend/core
 
 on:
   # Trigger the workflow on pull request,
@@ -8,8 +8,8 @@ on:
       - main
 
 jobs:
-  unit-tests:
-    name: Run unit tests
+  unit-tests-for-backend-core:
+    name: Run unit tests for backend/core
     runs-on: ubuntu-latest
 
     steps:
@@ -41,13 +41,3 @@ jobs:
       # tests
       - name: yarn unit test backend/core
         run: yarn test:backend:core
-
-      - name: yarn unit test sites/public
-        run: yarn test:app:public:unit
-
-      - name: yarn unit test sites/partners
-        run: yarn test:app:partners:unit
-
-      - name: yarn unit test shared-helpers
-        run: yarn test:shared:helpers
-
