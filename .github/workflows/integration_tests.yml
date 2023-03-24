@@ -30,7 +30,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           # Maps TCP port 5432 in the service container to a randomly chosen available port on the host.
-          - 5432
+          - 5432:5432
 
     steps:
       - name: Check out Git repository
@@ -39,8 +39,9 @@ jobs:
       - name: Check postgres
         run: pg_isready -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
 
-      - name: Update psql default port
-        run: pg_ctl -o "-F -p ${{ job.services.postgres.ports[5432] }}" start
+      # - name: Update psql default port
+      #   run: socat TCP-LISTEN:,fork TCP:127.0.0.1:5000
+      #   run: pg_ctl -o "-F -p ${{ job.services.postgres.ports[5432] }}" start
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
