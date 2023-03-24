@@ -25,9 +25,9 @@ jobs:
         image: postgres
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
-          # POSTGRES_DB: bloom_test
-          # POSTGRES_USER: bloom-dev
-          # POSTGRES_PASSWORD: bloom
+          POSTGRES_DB: bloom_test
+          POSTGRES_USER: bloom-dev
+          POSTGRES_PASSWORD: bloom
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           # Maps TCP port 5432 in the service container to a randomly chosen available port on the host.
@@ -59,13 +59,12 @@ jobs:
       - name: Check postgres
         run: pg_isready -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
 
-      - name: Check postgres a different way 
-        run: psql -c 'DROP DATABASE IF EXISTS bloom;'
-        env:
-          PGHOST: 127.0.0.1
-          # PGPASSWORD: bloom
-          # PGUSER: bloom-dev
-          # PGDATABASE: bloom_test
+      # - name: Check postgres a different way 
+      #   run: psql -c 'DROP DATABASE IF EXISTS bloom;'
+      #   env:
+      #     PGHOST: 127.0.0.1
+      #     PGPASSWORD: bloom
+      #     PGUSER: bloom-dev
 
 #  "psql -c 'DROP DATABASE IF EXISTS bloom_test' && psql -c 'CREATE DATABASE bloom_test' && psql -d bloom_test -c 'CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";' && yarn typeorm:test migration:run && ts-node src/seeder/seed.ts --test && yarn run test:e2e"
       - name: yarn e2e tests backend
@@ -75,3 +74,5 @@ jobs:
           TEST_DATABASE_URL: postgres://bloom-dev:bloom@127.0.0.1:${{ job.services.postgres.ports[5432] }}/bloom_test
           DATABASE_URL: postgres://bloom-dev:bloom@127.0.0.1:${{ job.services.postgres.ports[5432] }}/bloom
           PGHOST: 127.0.0.1
+          PGPASSWORD: bloom
+          PGUSER: bloom-dev
