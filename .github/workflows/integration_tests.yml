@@ -60,7 +60,7 @@ jobs:
         run: pg_isready -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }}
 
       - name: Not sure why but there is a dependency on this existing
-        run: psql -c 'CREATE DATABASE bloom-test;'
+        run: psql -c 'CREATE DATABASE bloom_test;'
         env:
           PGHOST: 127.0.0.1
           PGPASSWORD: bloom
