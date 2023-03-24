@@ -23,7 +23,22 @@ jobs:
 
       - name: yarn in root dir
         run: yarn
+      
+      # rerun yarn in each app.
+      # these seem unnecessary but do some yarn package magic, do not remove.
+      - name: yarn in sites/public dir
+        working-directory: ./sites/public
+        run: yarn
 
+      - name: yarn in backend/core dir
+        working-directory: ./backend/core
+        run: yarn
+
+      - name: yarn in sites/partners dir
+        working-directory: ./sites/partners
+        run: yarn
+
+      # tests
       - name: yarn unit test backend/core
         run: yarn test:backend:core
 
