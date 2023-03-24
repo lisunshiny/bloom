@@ -24,9 +24,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: bloom_test
-          POSTGRES_USER: bloom-dev
-          POSTGRES_PASSWORD: bloom
+          # POSTGRES_DB: bloom_test
+          # POSTGRES_USER: bloom-dev
+          # POSTGRES_PASSWORD: bloom
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         ports:
           # Maps TCP port 5432 in the service container to a randomly chosen available port on the host.
@@ -62,7 +62,9 @@ jobs:
         run: psql -c 'DROP DATABASE IF EXISTS bloom;'
         env:
           PGHOST: 127.0.0.1
-          PGPASSWORD: bloom
+          # PGPASSWORD: bloom
+          # PGUSER: bloom-dev
+          # PGDATABASE: bloom_test
 
 #  "psql -c 'DROP DATABASE IF EXISTS bloom_test' && psql -c 'CREATE DATABASE bloom_test' && psql -d bloom_test -c 'CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";' && yarn typeorm:test migration:run && ts-node src/seeder/seed.ts --test && yarn run test:e2e"
       - name: yarn e2e tests backend
