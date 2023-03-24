@@ -6,6 +6,14 @@ on:
   pull_request:
     branches:
       - main
+env:
+  PORT: 3100
+  EMAIL_API_KEY: 'SOME-LONG-SECRET-KEY'
+  DATABASE_URL: postgres://localhost/bloom
+  APP_SECRET: 'SOME-LONG-SECRET-KEY'
+  CLOUDINARY_SECRET: CLOUDINARY_SECRET
+  CLOUDINARY_KEY: CLOUDINARY_KEY
+  PARTNERS_PORTAL_URL: http://localhost:3001
 
 jobs:
   integration-tests:
