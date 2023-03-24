@@ -1,0 +1,38 @@
+name: Unit tests
+
+on:
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: yarn in root dir
+        run: yarn
+
+      - name: yarn unit test backend/core
+        run: yarn test:backend:core
+
+      - name: yarn unit test sites/public
+        run: yarn test:app:public:unit
+
+      - name: yarn unit test sites/partners
+        run: yarn test:app:partners:unit
+
+      - name: yarn unit test shared-helpers
+        run: yarn test:shared:helpers
+
