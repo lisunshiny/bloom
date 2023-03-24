@@ -63,7 +63,6 @@ jobs:
         env:
           PGHOST: 127.0.0.1
           PGPASSWORD: bloom
-          PGUSER: bloom-dev
 
 #  "psql -c 'DROP DATABASE IF EXISTS bloom_test' && psql -c 'CREATE DATABASE bloom_test' && psql -d bloom_test -c 'CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";' && yarn typeorm:test migration:run && ts-node src/seeder/seed.ts --test && yarn run test:e2e"
       - name: yarn e2e tests backend
