@@ -1,0 +1,43 @@
+name: Unit tests for sites/partners
+
+on:
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-tests-for-sites-partners:
+    name: Run unit tests for sites/partners
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: yarn in root dir
+        run: yarn
+      
+      # rerun yarn in each app.
+      # these seem unnecessary but do some yarn package magic, do not remove.
+      - name: yarn in sites/public dir
+        working-directory: ./sites/public
+        run: yarn
+
+      - name: yarn in backend/core dir
+        working-directory: ./backend/core
+        run: yarn
+
+      - name: yarn in sites/partners dir
+        working-directory: ./sites/partners
+        run: yarn
+
+      # tests
+      - name: yarn unit test sites/partners
+        run: yarn test:app:partners:unit
